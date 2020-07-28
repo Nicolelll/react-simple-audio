@@ -11,3 +11,30 @@ DO NOT DOWNLOAD NOW PLEASE!!!
 3. 支持倍速播放
 4. 进度条可调整
 
+### 如何使用
+
+```
+npm i react-simple-audio
+```
+
+或者
+
+```
+yarn add react-simple-audio
+```
+
+### 使用文档
+### PlayingButton
+
+| 成员          |              说明               | 类型                                                      | 默认值     |
+| ------------- | :-----------------------------: | :-------------------------------------------------------- | ---------- |
+| src           |            音乐地址             | string                                                    |            |
+| playing       |            播放状态             | boolean                                                   | false 暂停 |
+| onPlay        |            播放函数             | function(time){}                                          | -          |
+| onPause       |            暂停函数             | function(time){}                                          | -          |
+| className     |            组件样式             | object                                                    | -          |
+| iconClassName | icon 样式（调整默认 icon 样式） | object                                                    | -          |
+| customIcon    |           自定义 icon           | object(ReactDOM){playIcon: ReactDOM, pauseIcon: ReactDOM} | -          | 
+
+
+

@@ -1,0 +1,12 @@
+.basicContainer {
+  min-width: 200px;
+  min-height: 50px;
+  border: 1px solid #4FCAA4;
+  /* background: #000; */
+}
+.playBtn {
+  background: transparent;
+}
+.iconStyle {
+  color: #4FCAA4;
+}

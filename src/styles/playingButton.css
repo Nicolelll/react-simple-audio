@@ -1,0 +1,12 @@
+.playingButton {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  cursor: pointer;
+  background: #588b90;
+}
+.icon {
+  font-size: 65px;
+  color: #fff;
+}

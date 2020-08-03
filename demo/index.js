@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
-import { PlayingButton, BasicAudio } from "../src";
+import { PlayingButton, BasicAudio, } from "../src";
 import musicSrc from './assets/心裡有鬼.mp3'
 import imgSrc from './assets/20180402122700_ZeZiK.jpeg'
 
@@ -25,6 +25,11 @@ const Index = () => {
         src={musicSrc}         
         onClick={toggleBasePlay} 
         playing={basePlay} 
+        audioInfo={{
+          img: imgSrc,
+          name: '给你看',
+          author: '佛跳墙'
+        }}
       />
     </div>
   );

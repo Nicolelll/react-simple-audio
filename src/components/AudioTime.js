@@ -1,25 +1,40 @@
-import React, { useRef, useEffect, useState } from 'react'
-import BaseAudio from './BaseAudio'
-import useAudioState from '../hooks/useAudioState'
+import React, { useRef, useEffect, useState, useCallback, useReducer, useContext, useMemo } from 'react'
+import { formatTime } from '../utils/utils'
+import myContext from '../utils/commonContext'
+import classnames from 'classnames'
+import '../styles/audioTime.css'
 
-const AudioTime = ({playing}) => {
-  const audioRef = useRef(null)
+const AudioTime = (props) => {
+  const {className, handleRenderTime} = props
   const [total, setTotal] = useState(0)
-  const [audio] = useAudioState(audioRef, playing)
+  const [cur, setCur] = useState(0)
 
-  const getAudioInfo = (audio) => {
-    console.log(audio)
-  }
+  const audioInfo = useContext(myContext)
+  const classNames = useMemo(() => classnames('timeContainer', className), [className])
+
+  const renderAudioTime = () => handleRenderTime({
+    currentTime: formatTime(audioInfo.currentTime),
+    duration: formatTime(audioInfo.duration),
+  })
 
   useEffect(() => {
-    console.log('time ref', audio, playing)
-  }, [playing])
-  
+    setTotal(audioInfo.duration)
+  }, [audioInfo.duration])
+
+  useEffect(() => {
+    setCur(audioInfo.currentTime)
+  }, [audioInfo.currentTime])
+
+  const renderTime = useCallback(() => {
+    if (typeof handleRenderTime === 'function') {
+      return renderAudioTime()
+    } 
+    return (<div style={{minWidth: 90, textAlign: 'center'}}>{formatTime(cur)}/{formatTime(total)}</div>)
+  }, [cur, total])
+
   return (
-    <div>
-      <BaseAudio getAudioInfo={getAudioInfo} ref={audioRef} />
-      <div>time</div>
-      {/* <div>{ref.current.currentTime}/{ref.current.totalTime}</div> */}
+    <div className={classNames}>
+      {renderTime()}
     </div>
   )
 }

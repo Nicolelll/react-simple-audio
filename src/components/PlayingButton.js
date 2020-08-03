@@ -13,8 +13,8 @@ const PlayingButton = ({ className, iconClassName, src, playing = false, customI
     if (audio) {
       playing ? audio.handlePlay() : audio.handlePause();
     }
-    // console.log('playing btn', audio)
   }, [playing]);
+
 
   const renderIcon = useCallback(() => {
     if (customIcon) {

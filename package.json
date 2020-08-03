@@ -6,7 +6,7 @@
   },
   "name": "react-simple-audio",
   "description": "这是一款开源的超级简单的音频播放器。开箱即食！！",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "main": "index.js",
   "devDependencies": {
     "@babel/cli": "^7.10.5",

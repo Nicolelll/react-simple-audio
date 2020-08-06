@@ -30,10 +30,11 @@ const BasicAudio = ({className, playButtonClassName, iconClassName, src, onClick
             <div className='info'>
               <div className='title'>{audioInfo.name}</div>
               <div className='author'>{audioInfo.author}</div>
+              {showTime && <AudioTime />}
             </div>
           </div>
-
-          <div className='flex-center'>
+          <div className='flex'>
+            <Controls type={['toLast']} />
             <PlayingButton
               className={playBtnClass} 
               iconClassName={playIconClass} 
@@ -41,8 +42,7 @@ const BasicAudio = ({className, playButtonClassName, iconClassName, src, onClick
               playing={playing}
               {...commonProps}
             />
-            <Controls type='volume' />
-            {showTime && <AudioTime />}
+            <Controls type={['toNext', 'volume']} />
           </div>
         </div>
       </BaseAudio>

@@ -1,63 +1,91 @@
-import React, {useState, useContext, useEffect, useRef, useMemo,} from 'react'
-import classnames from 'classnames'
-import myContext from '../utils/commonContext'
-import { throttle } from '../utils/utils' 
-import '../styles/controls.css'
+import React, { useState, useContext, useEffect, useRef, useMemo } from "react";
+import classnames from "classnames";
+import myContext from "../utils/commonContext";
+import { throttle } from "../utils/utils";
+import "../styles/controls.css";
 
-const Controls = ({className, type}) => {
-  const [hide, setHide] = useState(true)
-  const [vol, setVol] = useState(100)
-  const [volHeight, setHeight] = useState(0)
-  const [volRate, setVolRate] = useState(1)
+const Controls = ({ className, type }) => {
+  const [vol, setVol] = useState(100);
+  const [volWidth, setWidth] = useState(0);
+  const [volRate, setVolRate] = useState(1);
 
-  const audioInfo = useContext(myContext)
+  const audioInfo = useContext(myContext);
 
-  const ref = useRef(null)
+  const ref = useRef(null);
 
-  const volClassNames = classnames('iconfont control-icon', className)
-  const volBoxClass = (state = hide) => classnames('volume-box', {'hidden': state})
+  const volClassNames = classnames("iconfont control-icon", className);
 
-  const lineStyle = useMemo(() => ({
-    height: volHeight > 0 ? volRate * vol : '100%',
-  }), [volHeight, vol])
+  const lineStyle = useMemo(
+    () => ({
+      width: volWidth > 0 ? volRate * vol : "100%",
+    }),
+    [volWidth, vol]
+  );
 
-  const handleVolume = () => {
-    setHide(!hide)
-  }
-
+  console.log(vol)
   const handleChangeVol = throttle(() => {
     // event.preventDefault()
-    if (!hide) {
-      setVol(vol + event.offsetY)
-      audioInfo.handleControlVolume(parseFloat((vol/100).toFixed(2)))
+    if (vol + event.offsetX <= 0) {
+      setVol(0)
+    } else if (vol + event.offsetXol >= 100) {
+      setVol(100)
+    } else {
+      // console.log('happen', vol + event.offsetX)
+      setVol(vol + event.offsetX);
     }
-  }, 100)
+    audioInfo.handleControlVolume(parseFloat((vol / 100).toFixed(2)));
+  }, 100);
+
+  const handleLastOne = () => {};
 
   useEffect(() => {
-    setVol(audioInfo.volume * 100)
-    console.log('con', audioInfo.volume)
-  }, [audioInfo.volume])
-  
+    setVol(audioInfo.volume * 100);
+    console.log("con", audioInfo.volume);
+  }, [audioInfo.volume]);
+
   useEffect(() => {
-    if (ref.current.offsetHeight > 0) {
-      setHeight(ref.current.offsetHeight)
-      setVolRate(ref.current.offsetHeight/(audioInfo.volume * 100))
+    if (ref.current && ref.current.offsetWidth > 0) {
+      setWidth(ref.current.offsetWidth);
+      setVolRate(ref.current.offsetWidth / (audioInfo.volume * 100));
     }
-  }, [hide])
+  }, [ref.current && ref.current.offsetWidth]);
 
   return (
-    <div>
+    <div className="control-container">
+      {/* 上一曲 */}
+      {type.includes("toLast") && (
+        <span
+          onClick={handleLastOne}
+          className={`${volClassNames} icon-skip-back-fill`}
+        ></span>
+      )}
+
+      {/* 下一曲 */}
+      {type.includes("toNext") && (
+        <span
+          onClick={handleLastOne}
+          className={`${volClassNames} icon-skip-forward-fill`}
+        ></span>
+      )}
+
       {/* 音量 */}
-      <div>
-        <div className={volBoxClass()}>
-          <div className='vloume-line' style={lineStyle} ref={ref}>
-            <div className='volume-point' draggable onDrag={handleChangeVol}></div>
+      {type.includes("volume") && (
+        <div className='flex flex-baseline'>
+          <span
+            className={`${volClassNames} icon-volume-down-fill`}
+          ></span>
+          <div className='volume-box'>
+            <div className="vloume-line" style={lineStyle} ref={ref}>
+              <div
+                className="volume-point"
+                draggable
+                onDrag={handleChangeVol}
+              ></div>
+            </div>
           </div>
         </div>
-        <span onClick={handleVolume} className={`${volClassNames} icon-volume-down-fill`}></span>
-      </div>
-
+      )}
     </div>
-  )
-}
-export default Controls
+  );
+};
+export default Controls;

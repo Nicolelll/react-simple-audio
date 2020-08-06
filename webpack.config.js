@@ -11,7 +11,8 @@ module.exports = {
   output: {
     filename: env === 'development' ? "react-simple-audio.js" : "react-simple-audio.min.js",
     path: path.join(__dirname, "lib"),
-    libraryTarget: 'umd',
+    libraryTarget: 'umd',    // 采用通用模块定义
+    // libraryExport: 'default', // 兼容 ES6 的模块系统、CommonJS 和 AMD 模块规范
     umdNamedDefine: true, // 是否将模块名称作为 AMD 输出的命名空间
   },
   module: {

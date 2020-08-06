@@ -1,5 +1,5 @@
 ### simpleAudio 是什么
-这是一款开源的超级简单的音频播放器。开箱即食！！
+这是一款基于react框架的开源的超级简单的音频播放器。开箱即食！！
 
 ### 功能
 
@@ -20,28 +20,10 @@ npm i react-simple-audio
 yarn add react-simple-audio
 ```
 
-```
-import { PlayingButton, BasicAudio } from 'react-simple-audio'
+!!请确保您的react版本高于16.8
 
-<p1>playBtn</p1>
-<PlayingButton 
-  src={musicSrc} 
-  onClick={togglePlayState} 
-  playing={playing} 
-  style={{background: `url(${imgSrc}) no-repeat center`, backgroundSize: 'cover'}}
-/>
-<p>basic audio</p>
-<BasicAudio 
-  src={musicSrc}         
-  onClick={toggleBasePlay} 
-  playing={basePlay} 
-  audioInfo={{
-    img: imgSrc,
-    name: '给你看',
-    author: '佛跳墙'
-  }}
-/>
-```
+
+[live demo](https://codesandbox.io/s/react-simple-audio-demo-ozjy1)
 
 ### 使用文档
 ### PlayingButton

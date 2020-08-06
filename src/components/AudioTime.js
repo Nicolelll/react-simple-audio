@@ -29,7 +29,7 @@ const AudioTime = (props) => {
     if (typeof handleRenderTime === 'function') {
       return renderAudioTime()
     } 
-    return (<div style={{minWidth: 90, textAlign: 'center'}}>{formatTime(cur)}/{formatTime(total)}</div>)
+    return (<div style={{minWidth: 90}}>{formatTime(cur)}/{formatTime(total)}</div>)
   }, [cur, total])
 
   return (

@@ -39,7 +39,6 @@ const BaseAudio = React.forwardRef((props, ref) => {
       currentTime: 0,
       duration: 0,
       volume: 100,
-      handleControlVolume,
       handleSetCurrentTime,
       ...info,
     }
@@ -67,6 +66,7 @@ const BaseAudio = React.forwardRef((props, ref) => {
     setAudioInfo(
       changeAudioInfo({
         ...audioInfo,
+        duration: Math.ceil(audioRef.current.duration),
         currentTime: Math.ceil(audioRef.current.currentTime),
         volume: audioRef.current.volume,
       })

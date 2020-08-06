@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const env = process.env.NODE_ENV || "development";
 
-const PORT = 8081
+const PORT = 8082
 // const pluginsList = [new CleanWebpackPlugin(), new htmlWebpackPlugin()];
 const pluginsList = [new htmlWebpackPlugin({
   template: path.join(__dirname, './index.html'),

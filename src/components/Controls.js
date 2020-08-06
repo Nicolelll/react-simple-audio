@@ -4,7 +4,7 @@ import myContext from "../utils/commonContext";
 import { throttle } from "../utils/utils";
 import "../styles/controls.css";
 
-const Controls = ({ className, type }) => {
+const Controls = ({ className, type, handleLastOne, handleNextOne, }) => {
   const [vol, setVol] = useState(100);
   const [volWidth, setWidth] = useState(0);
   const [volRate, setVolRate] = useState(1);
@@ -22,7 +22,6 @@ const Controls = ({ className, type }) => {
     [volWidth, vol]
   );
 
-  console.log(vol)
   const handleChangeVol = throttle(() => {
     // event.preventDefault()
     if (vol + event.offsetX <= 0) {
@@ -30,13 +29,11 @@ const Controls = ({ className, type }) => {
     } else if (vol + event.offsetXol >= 100) {
       setVol(100)
     } else {
-      // console.log('happen', vol + event.offsetX)
       setVol(vol + event.offsetX);
     }
-    audioInfo.handleControlVolume(parseFloat((vol / 100).toFixed(2)));
+    // audioInfo.handleControlVolume(parseFloat((vol / 100).toFixed(2)));
   }, 100);
 
-  const handleLastOne = () => {};
 
   useEffect(() => {
     setVol(audioInfo.volume * 100);
@@ -48,7 +45,7 @@ const Controls = ({ className, type }) => {
       setWidth(ref.current.offsetWidth);
       setVolRate(ref.current.offsetWidth / (audioInfo.volume * 100));
     }
-  }, [ref.current && ref.current.offsetWidth]);
+  }, [ref.current, audioInfo]);
 
   return (
     <div className="control-container">
@@ -63,7 +60,7 @@ const Controls = ({ className, type }) => {
       {/* 下一曲 */}
       {type.includes("toNext") && (
         <span
-          onClick={handleLastOne}
+          onClick={handleNextOne}
           className={`${volClassNames} icon-skip-forward-fill`}
         ></span>
       )}

@@ -46,6 +46,10 @@
 .title {
   font-size: 15px;
   color: #333;
+  height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .author {
   font-size: 12px;

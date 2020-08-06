@@ -12,41 +12,88 @@ const BasicAudio = ({className, playButtonClassName, iconClassName, src, onClick
   const basicClass = classnames('basicContainer', className)
   const playBtnClass = classnames('playBtn', playButtonClassName)
   const playIconClass = classnames('iconStyle', iconClassName)
+
+  const [audioSrc, setSrc] = useState('')
+  const [srcNum, setSrcNum] = useState(0)
   const commonProps = {
     onClick,
-    // playing,
-    src,
+    src: typeof src === 'string' ? src : audioSrc[srcNum],
+  }
+
+
+  useEffect(() => {
+    if (typeof src === 'string') {
+      setSrc(src)
+    } else {
+      const temperArr = []
+      src.forEach(item => temperArr.push(item.url))
+      setSrc(() => setSrc(temperArr))
+    }
+  }, [src])
+
+  // const ref = useRef(null)
+
+  // const changeAudioInfo = (info) => {
+  //   return {
+  //     currentTime: 0,
+  //     duration: 0,
+  //     volume: 1,
+  //     ...info,
+  //   }
+  // }
+
+  // const [audio, setAudio] = useState(changeAudioInfo())
+
+  // useEffect(() => {
+  //   if (ref.current) {
+  //     setAudio({
+  //       ...audio,
+  //       duration: ref.current.duration
+  //     })
+  //   }
+  // }, [ref.current])
+
+  const toLast = () => {
+    if (typeof audioSrc === 'string') return
+
+    srcNum === 0 ? setSrcNum(audioSrc.length - 1) : setSrcNum(x => x-1)
+  }
+
+  const toNext = () => {
+    if (typeof audioSrc === 'string') return
+
+    srcNum === audioSrc.length -1 ? setSrcNum(0) : setSrcNum(x => x+1)
   }
 
   return (
-    <div className={basicClass}>
-      <BaseAudio {...commonProps} playing={playing}>
-        <Progress playing={playing} />
-        <div className='baseAudio'>
-          <div className='flex'>
-            <div className='img'>
-              <img src={audioInfo.img} />
+      <div className={basicClass}>
+        <BaseAudio {...commonProps} playing={playing}>
+          <Progress />
+          <div className='baseAudio'>
+            <div className='flex'>
+              <div className='img'>
+                <img src={audioInfo[srcNum] ? audioInfo[srcNum].img : audioInfo.img} />
+              </div>
+              <div className='info'>
+                <div className='title'>{audioInfo[srcNum] ? audioInfo[srcNum].name : audioInfo.name}</div>
+                <div className='author'>{audioInfo[srcNum] ? audioInfo[srcNum].author : audioInfo.author}</div>
+                {showTime && <AudioTime />}
+              </div>
             </div>
-            <div className='info'>
-              <div className='title'>{audioInfo.name}</div>
-              <div className='author'>{audioInfo.author}</div>
-              {showTime && <AudioTime />}
+            <div className='flex'>
+              <Controls type={['toLast']} handleLastOne={toLast} />
+              <PlayingButton
+                className={playBtnClass} 
+                iconClassName={playIconClass} 
+                customIcon={customIcon} 
+                playing={playing}
+                {...commonProps}
+              />
+              <Controls type={['toNext']} handleNextOne={toNext} />
             </div>
           </div>
-          <div className='flex'>
-            <Controls type={['toLast']} />
-            <PlayingButton
-              className={playBtnClass} 
-              iconClassName={playIconClass} 
-              customIcon={customIcon} 
-              playing={playing}
-              {...commonProps}
-            />
-            <Controls type={['toNext', 'volume']} />
-          </div>
-        </div>
-      </BaseAudio>
-    </div>
+        </BaseAudio>
+      </div>
   )
 }
 export default BasicAudio

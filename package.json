@@ -2,7 +2,7 @@
   "dependencies": {},
   "name": "react-simple-audio",
   "description": "这是一款开源的超级简单的音频播放器。开箱即食！！",
-  "version": "1.0.7-beta",
+  "version": "1.0.9-beta",
   "main": "index.js",
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -46,6 +46,11 @@
     "audio",
     "simple"
   ],
-  "author": "nanako",
-  "license": "ISC"
+  "author": "nanako <tergivesate@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nicolelll/react-simple-audio.git"
+  },
+  "homepage": "https://github.com/Nicolelll/react-simple-audio"
 }
